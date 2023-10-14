@@ -1,4 +1,4 @@
-const categories = [
+export const categoriesData = [
   {
     desc: "Fresh greens, crisp veggies, and delectable dressings for a light and healthy start.",
     id: "cln364xd200006ulsx6i55j5i",
