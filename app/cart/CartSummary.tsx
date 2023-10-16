@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import CartList from "./CartList";
+import LocationBtn from "../components/Common/LocationBtn";
 
 const CartSummary = () => {
   const [subTotal, setSubTotal] = useState(21);
@@ -25,7 +26,9 @@ const CartSummary = () => {
               <h2 className="text-lg leading-6 my-4 font-medium text-gray-900">
                 Delivery Address
               </h2>
-              <div>Location</div>
+              <div>
+                <LocationBtn/>
+              </div>
             </div>
           </div>
           <div>
