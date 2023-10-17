@@ -129,7 +129,7 @@ export const OrderData = [
     note: "sdgsdgdggdssgd",
     discount: 2,
     total: 57,
-    paid: true
+    paid: false
   },
   {
     id: "cln69grpj0007jq08kxl810cj",

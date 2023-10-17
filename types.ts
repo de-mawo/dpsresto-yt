@@ -53,3 +53,18 @@ type Order = {
   total: number;
   paid: boolean;
 };
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  img: string;
+  role: string;
+};
+
+type Category = {
+  desc: string;
+  id: string;
+  category: string;
+  imageSrc: string;
+};

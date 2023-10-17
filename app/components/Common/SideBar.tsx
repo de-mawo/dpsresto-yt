@@ -18,8 +18,7 @@ const Links = [
 ];
 
 const SideBar = () => {
-  
-    const {isSideBarOpen, onSideBarClose} = useSideBarDrawer()
+  const { isSideBarOpen, onSideBarClose } = useSideBarDrawer();
 
   return (
     <DialogComponent isVisible={isSideBarOpen} onClose={onSideBarClose}>
@@ -60,6 +59,19 @@ const SideBar = () => {
           <HiOutlineArrowRightOnRectangle className="mr-4 shrink-0" size={26} />
           <span className="pl-2">Sign Out</span>
         </button>
+
+        <div className="flex flex-col border-t ">
+          <div className="mt-5">
+            <Link
+              href="/dashboard"
+              className="bg-green-600  text-white text-center hover:bg-green-200  hover:text-green-700  p-3 rounded "
+            >
+              Go to Dashboard
+            </Link>
+          </div>
+        </div>
+
+        
       </div>
     </DialogComponent>
   );
