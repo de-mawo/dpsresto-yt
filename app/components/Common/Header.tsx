@@ -1,11 +1,23 @@
 "use client";
-import { useSideBarDrawer } from "@/lib/store";
+import {  useLoginModal, useSideBarDrawer } from "@/lib/store";
 import Link from "next/link";
 import { HiBars3, HiOutlineShoppingCart } from "react-icons/hi2";
 import LocationBtn from "./LocationBtn";
+import { User } from "@prisma/client";
+import AccountDropDown from "./AccountDropDown";
 
-const Header = () => {
+type HeaderProps = {
+  user: User
+}
+
+const Header = ({user}:HeaderProps) => {
+
+  const {onOpen} = useLoginModal()
+  
+
     const {onSideBarOpen} = useSideBarDrawer()
+
+    
   return (
     <header className="grid grid-cols-2 py-5 px-4 md:px-12 items-center sticky top-0 z-10 bg-white">
       {/* Left Area  */}
@@ -31,9 +43,18 @@ const Header = () => {
             0
           </span>
         </Link>
-        <button className="bg-slate-200 text-gray-500 px-4 py-1 rounded-full">
+        {
+          user ? (
+            <AccountDropDown user={user} />
+          ): (
+
+        <button className="bg-slate-200 text-gray-500 px-4 py-1 rounded-full"
+        onClick={onOpen}
+        >
           Login/Signup
         </button>
+          )
+        }
       </div>
     </header>
   );

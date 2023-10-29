@@ -6,9 +6,14 @@ import {
   HiOutlineUserPlus,
 } from "react-icons/hi2";
 import Image from "next/image";
+import { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
 
+type AccountDropDownProps = {
+  user: User
+}
 
-export default function AccountDropDown() {
+export default function AccountDropDown({user}: AccountDropDownProps) {
  
   return (
     <div className="">
@@ -16,7 +21,7 @@ export default function AccountDropDown() {
         <div>
           <Menu.Button className="bg-slate-200 p-1  rounded-full text-gray-500 hover:bg-green-200 hover:text-green-600">
             <Image
-              src='/img/humans/h1.jpg'
+              src={user?.image!}
               alt="avatar"
               width={30}
               height={30}
@@ -43,13 +48,13 @@ export default function AccountDropDown() {
               <Menu.Item>
                 <div className="flex items-center py-4 pl-3 rounded-md text-gray-500 transition-all  hover:bg-green-200 hover:text-green-600 ">
                   <Image
-                    src='/img/humans/h1.jpg'
+                     src={user?.image!}
                     alt="avatar"
                     width={30}
                     height={30}
                     className=" object-cover bg-white  rounded-full  dark:bg-slate-600"
                   />
-                  <span className="pl-4 ">De Mawo </span>
+                  <span className="pl-4 ">{user?.name} </span>
                 </div>
               </Menu.Item>
               <Menu.Item>
@@ -66,7 +71,7 @@ export default function AccountDropDown() {
                   className="flex items-center py-4 pl-3
                  w-full rounded-md text-gray-500 transition-all 
                   hover:bg-green-200 hover:text-green-600"
-                
+                  onClick={() => signOut({ callbackUrl: "/" })}
                 >
                   <HiOutlineArrowRightOnRectangle className="h-6 w-6 mr-4 shrink-0" />
                   <span className="pl-4">Sign Out </span>
