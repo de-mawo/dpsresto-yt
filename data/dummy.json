@@ -1,0 +1,85 @@
+[
+  {
+    "category": "breakfast",
+    "image": "/img/food/burger.png",
+    "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+    "prepType": ["well-done", "medium"],
+    "price": 5.5,
+    "sellingPrice": null,
+    "shortDescr": "smoked cherries dumpling  with a delicate texture",
+    "title": "Chaw Burger"
+  },
+  {
+    "category": "italian",
+    "image": "/img/food/chicken-fillet.png",
+    "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+    "prepType": ["well-done", "medium"],
+    "price": 6.5,
+    "sellingPrice": null,
+    "shortDescr": "wheat with myrtle plant and has a dash of calamint.",
+    "title": "Chicken Fillet"
+  },
+  {
+    "category": "drinks",
+    "image": "/img/food/rockshandy.png",
+    "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+
+    "prepType": ["well-done", "medium"],
+    "price": 4.5,
+    "sellingPrice": null,
+    "shortDescr": "chickpeas with sumac and has lemon balm",
+    "title": "Rockshandy"
+  },
+  {
+    "category": "meals",
+    "image": "/img/food/steak.png",
+    "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+    "prepType": ["well-done", "medium"],
+    "price": 3.5,
+    "sellingPrice": null,
+    "shortDescr": "chickpeas with sumac and has lemon balm",
+    "title": "Big Steak"
+  },
+  {
+    "category": "meal",
+    "image": "/img/food/steak2.png",
+    "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+    "prepType": ["well-done", "medium"],
+    "price": 11.3,
+    "sellingPrice": null,
+    "shortDescr": "smoked cherries dumpling  with a delicate texture",
+    "title": "Louis Steak"
+  },
+  {
+    "category": "breakfast",
+    "image": "/img/food/sandwich.png",
+    "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+
+    "prepType": ["well-done", "medium"],
+    "price": 8.2,
+    "sellingPrice": null,
+    "shortDescr": "chickpeas with sumac and has lemon balm",
+    "title": "SandWich"
+  },
+  {
+    "category": "fish",
+    "image": "/img/food/salmond.png",
+    "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+
+    "prepType": ["well-done", "medium"],
+    "price": 15.5,
+    "sellingPrice": null,
+    "shortDescr": "chickpeas with sumac and has lemon balm",
+    "title": "Salmond "
+  },
+  {
+    "category": "drinks",
+    "image": "/img/food/mojito.png",
+    "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+    "prepType": ["well-done", "medium"],
+    "price": 5.2,
+    "sellingPrice": null,
+    "shortDescr": "wheat with myrtle plant and has a dash of calamint.",
+    "title": "Mojito"
+  }
+]

@@ -2,8 +2,8 @@ import { createContext } from "@/app/api/graphql/context";
 import SchemaBuilder from "@pothos/core";
 import PrismaPlugin from '@pothos/plugin-prisma';
 import { DateTimeResolver, JSONResolver } from "graphql-scalars";
-import type PrismaTypes from '@pothos/plugin-prisma/generated';
 import RelayPlugin from '@pothos/plugin-relay';
+import type PrismaTypes from "@pothos/plugin-prisma/generated";
 
 
 

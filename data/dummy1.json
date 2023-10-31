@@ -1,0 +1,98 @@
+[
+    {
+      
+      "orderNumber": "DPS231008130004",
+      "cart": [
+        {
+          "id": "clmq3a75z00026uxwwi49fd0h",
+          "image": "/img/food/rockshandy.png",
+          "price": 4,
+          "title": "Rockshandy",
+          "onPromo": false,
+          "prepare": "medium",
+          "category": "meals",
+          "prepType": [
+            "well-done",
+            "medium"
+          ],
+          "quantity": 5,
+          "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+          "shortDescr": "chickpeas with sumac and has lemon balm",
+          "instructions": "vbjbjjjj",
+          "sellingPrice": 0
+        }
+      ],
+      "orderDate": "2023-10-08 11:00:40.296",
+      "deliveryTime": "2023-10-08 11:00:40.296",
+      "userName": "De Mawo",
+      "userEmail": "demawo@dpsresto.com",
+      "userPhone": "06123457892",
+      "paymentToken": "pi_3NyuizEC7qs86lGu1qvusHYL",
+      "deliveryAddress": "9/13 Hay St, Haymarket NSW 2000, Australia",
+      "deliveryFee": 3,
+      "serviceFee": 6,
+      "status": "PREPARING",
+      "note": "deliver at my door",
+      "discount": 2,
+      "total": 27,
+      "paid": true
+    },
+
+    
+    {
+     
+      "orderNumber": "DPS230921220436",
+      "cart": [
+        {
+          "id": "clmq3ah3l00036uxwxuqb96c3",
+          "image": "/img/food/steak.png",
+          "price": 3.5,
+          "title": "Big Steak",
+          "onPromo": false,
+          "prepare": "well-done",
+          "category": "burgers",
+          "prepType": [
+            "well-done",
+            "medium"
+          ],
+          "quantity": 3,
+          "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+          "shortDescr": "chickpeas with sumac and has lemon balm",
+          "instructions": "Put a lot of sauce",
+          "sellingPrice": 0
+        },
+        {
+          "image": "/img/food/burger.png",
+          "price": 5.5,
+          "title": "Chaw Burger",
+          "onPromo": false,
+          "prepare": "medium",
+          "category": "breakfast",
+          "prepType": [
+            "well-done",
+            "medium"
+          ],
+          "quantity": 3,
+          "longDescr": "marinated oats quesadilla is a little greasy with a tough texture. It has subtle hints of wheat with myrtle plant and has a dash of calamint",
+          "shortDescr": "smoked cherries dumpling with a delicate texture",
+          "instructions": "Add chilli",
+          "sellingPrice": 0
+        }
+      ],
+      "orderDate": "2023-09-21 20:07:42.609",
+      "deliveryTime": "2023-09-21 20:07:42.609",
+      "userName": "Prince Demawo",
+      "userEmail": "groovebassist1@gmail.com.com",
+      "userPhone": "0814363223",
+      "paymentToken": "pi_3NstA4EC7qs86lGu0qefCd4c",
+      "deliveryAddress": "9/13 Hay St, Haymarket NSW 2000, Australia",
+      "deliveryFee": 3,
+      "serviceFee": 6,
+     
+      "note": "Call me when you are outside",
+      "discount": 2,
+      "total": 34
+    
+    }
+  ]
+  
