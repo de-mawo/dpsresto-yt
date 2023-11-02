@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",
@@ -18,6 +19,7 @@
     "@pothos/plugin-relay": "^3.44.0",
     "@prisma/client": "^5.5.2",
     "@types/mapbox-gl": "^2.7.17",
+    "@urql/next": "^1.1.0",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
     "mapbox-gl": "^2.15.0",
@@ -31,6 +33,10 @@
     "zustand": "^4.4.4"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-urql": "^4.0.0",
     "@types/node": "^20.8.9",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",

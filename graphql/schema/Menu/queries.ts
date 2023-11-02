@@ -45,4 +45,35 @@ builder.queryFields((t) => ({
       return menus;
     },
   }),
+
+  getMenuUserFavorites: t.prismaField({
+    type: ["Menu"],
+    args: {
+      userEmail: t.arg.string({ required: true }),
+      menuIds: t.arg.stringList({ required: true }),
+    },
+    resolve: async (query, _, args, context) => {
+      const isLoggedIn = !(await context).user;
+      if (isLoggedIn) {
+        throw new GraphQLError("You must be logged in  to perform this action");
+      }
+      if ((await context).user?.email !== args.userEmail) {
+        throw new GraphQLError(
+          "You cannot alter a favorite to an account which is not yours"
+        );
+      }
+      const menuIds = args.menuIds
+      const menus = await prisma.menu.findMany({
+        ...query,
+        where: {
+          id: {
+            in: menuIds,
+          },
+        },
+      });
+    
+      return menus;
+      
+    },
+  }),
 }));
