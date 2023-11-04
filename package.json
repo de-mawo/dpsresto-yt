@@ -30,6 +30,7 @@
     "react-icons": "^4.11.0",
     "react-map-gl": "^7.1.6",
     "recharts": "^2.9.0",
+    "urql": "^4.0.5",
     "zustand": "^4.4.4"
   },
   "devDependencies": {

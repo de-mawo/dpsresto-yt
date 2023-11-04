@@ -8,6 +8,7 @@ import { HiChevronDown } from "react-icons/hi2";
 
 type Props = {
   menu: Menu;
+  user: User
 };
 
 const MenuModal = ({ menu }: Props) => {

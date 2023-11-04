@@ -1,0 +1,23 @@
+query GetMenus($first: Int, $after: ID) {
+  getMenus(first: $first, after: $after) {
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    edges {
+      cursor
+      node {
+        category
+        id
+        image
+        longDescr
+        onPromo
+        prepType
+        price
+        sellingPrice
+        shortDescr
+        title
+      }
+    }
+  }
+}
