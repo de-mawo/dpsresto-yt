@@ -1,0 +1,59 @@
+query GetUser($email: String!) {
+  getUser(email: $email) {
+    email
+    id
+    image
+    name
+    role
+    order {
+      cart
+      deliveryAddress
+      deliveryFee
+      deliveryTime
+      discount
+      id
+      note
+      orderDate
+      orderNumber
+      paid
+      paymentToken
+      serviceFee
+      status
+      total
+      userEmail
+      userName
+      userPhone
+    }
+  }
+}
+
+query GetProfile($email: String!) {
+  getProfile(email: $email) {
+    id
+    img
+    name
+    phone
+  }
+}
+
+mutation AddProfile(
+  $email: String!
+  $img: String
+  $name: String
+  $phone: String
+) {
+  addProfile(email: $email, img: $img, name: $name, phone: $phone) {
+    id
+  }
+}
+
+mutation EditProfile(
+  $email: String!
+  $img: String
+  $name: String
+  $phone: String
+) {
+  editProfile(email: $email, img: $img, name: $name, phone: $phone) {
+    id
+  }
+}

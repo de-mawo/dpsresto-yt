@@ -6,6 +6,7 @@ import MenuModal from './MenuModal'
 import { GetMenusDocument, GetMenusQuery, GetMenusQueryVariables } from '@/graphql/generated'
 import { useQuery } from '@urql/next'
 import DataLoading from '../Common/ClientLoaders'
+import { Menu, User } from '@prisma/client'
 
 type FetchedMenuProps = {
   variables: GetMenusQueryVariables;

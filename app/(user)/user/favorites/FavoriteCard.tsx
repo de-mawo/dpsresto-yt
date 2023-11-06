@@ -1,4 +1,5 @@
 
+import { Menu } from "@prisma/client";
 import Image from "next/image";
 import { FaCartArrowDown } from "react-icons/fa";
 

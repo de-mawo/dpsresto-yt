@@ -5,6 +5,8 @@ import { useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { BsFillBoxFill } from "react-icons/bs";
 import Modal from "@/app/components/Common/Modal";
+import { Order } from "@prisma/client";
+import { CartItemType } from "@/types";
 
 type Props = {
   order: Order;
@@ -36,7 +38,7 @@ const UserDeliveredModal = ({ order }: Props) => {
         closeModal={closeModal}
       >
         <div className="mt-4">
-          {order.cart.map((cart) => (
+          {order?.cart.map((cart: any) => (
             <div className="flex items-center space-y-3 " key={cart.id}>
               <div className="w-16 h-16 overflow-hidden  rounded-full">
                 <Image

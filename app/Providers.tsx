@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   UrqlProvider,
@@ -6,31 +6,43 @@ import {
   cacheExchange,
   fetchExchange,
   createClient,
-} from '@urql/next';
+} from "@urql/next";
 import { useMemo } from "react";
 import AuthModal from "./components/Common/AuthModal";
-
+import { Toaster } from "react-hot-toast";
 
 type ProviderProps = {
-    children: React.ReactNode;
-}
+  children: React.ReactNode;
+  graphqlApiKey: string;
+};
 
-const Providers = ({children}: ProviderProps) => {
+const Providers = ({ children, graphqlApiKey }: ProviderProps) => {
   const [client, ssr] = useMemo(() => {
     const graphql_api = process.env.NEXT_PUBLIC_GRAPHQL_API as string;
-    const ssr = ssrExchange()
+    const ssr = ssrExchange();
     const client = createClient({
       url: graphql_api,
       exchanges: [cacheExchange, ssr, fetchExchange],
-    })
-    return [client, ssr]
-  }, [])
+      // disable this in development for you to be able to access your sandbox
+
+      // fetchOptions: () => {
+      //   const apiKey = graphqlApiKey;
+
+      //   return {
+      //     headers: { authorization: apiKey ? `Bearer ${apiKey}` : "" },
+      //   };
+      // },
+    });
+    return [client, ssr];
+  }, []);
+
   return (
     <UrqlProvider client={client} ssr={ssr}>
-        <AuthModal/>
-        {children}
+      <Toaster />
+      <AuthModal />
+      {children}
     </UrqlProvider>
-  )
-}
+  );
+};
 
-export default Providers
+export default Providers;

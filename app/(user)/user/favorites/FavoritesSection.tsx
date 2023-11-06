@@ -6,9 +6,31 @@ import Link from "next/link";
 import { MenuData } from "@/data/menu-data";
 import Container from "@/app/components/Common/Container";
 import FavoriteModal from "./FavoriteModal";
+import { Menu, User } from "@prisma/client";
+import { useQuery } from "@urql/next";
+import { GetMenuUserFavoritesDocument, GetMenuUserFavoritesQuery, GetMenuUserFavoritesQueryVariables, GetUserFavoritesDocument, GetUserFavoritesQuery, GetUserFavoritesQueryVariables } from "@/graphql/generated";
 
+type Props = {
+  user: User;
+};
 
-const FavoritesSection = () => {
+const FavoritesSection = ({ user }: Props) => {
+
+  const userEmail = user?.email as string;
+
+  const [{ data, fetching: FavsFetch, error: FavsErr }] = useQuery<
+    GetUserFavoritesQuery,
+    GetUserFavoritesQueryVariables
+  >({ query: GetUserFavoritesDocument, variables: { userEmail } });
+
+  const menuIds = data?.getUserFavorites.menu as string[];
+
+  const [{ data: userFavorites, fetching, error }] = useQuery<
+    GetMenuUserFavoritesQuery,
+    GetMenuUserFavoritesQueryVariables
+  >({ query: GetMenuUserFavoritesDocument, variables: { menuIds, userEmail } });
+
+  const Favorites = userFavorites?.getMenuUserFavorites;
 
   return (
     <Container>
@@ -29,11 +51,11 @@ const FavoritesSection = () => {
       </div>
 
       <section className="my-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4  gap-8">
-        {MenuData?.map((favorite) => (
+        {Favorites?.map((favorite) => (
           <FavoriteModal
             key={favorite.id}
             favorite={favorite as Menu}
-           
+            user={user}
           />
         ))}
       </section>

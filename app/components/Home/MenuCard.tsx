@@ -1,3 +1,4 @@
+import { Menu } from "@prisma/client";
 import Image from "next/image";
 
 type Props = {

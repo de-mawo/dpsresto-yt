@@ -7,14 +7,17 @@ import { HiChevronDown } from "react-icons/hi2";
 import Modal from "@/app/components/Common/Modal";
 import FavoritesBtn from "@/app/components/Common/FavoritesBtn";
 import FavoriteCard from "./FavoriteCard";
+import { Menu, User } from "@prisma/client";
+import { useCartStore } from "@/lib/store";
+import toast from "react-hot-toast";
 
 
 type Props = {
   favorite: Menu;
- 
+ user: User
 };
 
-const FavoriteModal = ({ favorite }: Props) => {
+const FavoriteModal = ({ favorite, user }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [prepare, setPrepare] = useState("");
   const [instructions, setInstructions] = useState("");
@@ -22,6 +25,19 @@ const FavoriteModal = ({ favorite }: Props) => {
   const closeModal = () => setIsOpen(false);
   const OpenModal = () => setIsOpen(true);
 
+  const { addToCart } = useCartStore();
+
+  const MenuToAdd = { ...favorite, quantity: 1, prepare, instructions };
+
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+  }, []);
+
+  const PutItemsInCart = () => {
+    addToCart(MenuToAdd);
+    toast.success("Menu Added to Cart", { duration: 4000 });
+    setTimeout(closeModal, 2000);
+  };
 
 
   return (
@@ -41,7 +57,7 @@ const FavoriteModal = ({ favorite }: Props) => {
       rounded-full bg-white
       "
           >
-            <FavoritesBtn />
+            <FavoritesBtn menuId={favorite.id} user={user}/>
           </div>
         </div>
         <div className="mt-2">
@@ -95,6 +111,7 @@ const FavoriteModal = ({ favorite }: Props) => {
           <button
             type="button"
             className="form-button"
+            onClick={PutItemsInCart}
           >
             Add to Cart :${favorite.price}
           </button>

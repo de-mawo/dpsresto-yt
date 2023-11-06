@@ -12,8 +12,30 @@ import { OrderData } from "@/data/order-data";
 import Container from "@/app/components/Common/Container";
 import UserDeliveredModal from "./UserDeliveredModal";
 import UserOnDeliveryModal from "./UserOnDeliveryModal";
+import { Order, User } from "@prisma/client";
+import { useQuery } from "@urql/next";
+import { GetUserDocument, GetUserQuery, GetUserQueryVariables } from "@/graphql/generated";
 
-const UserOrders = () => {
+type Props = {
+  user: User;
+};
+
+
+
+
+const UserOrders = ({ user }: Props) => {
+
+  const userEmail = user?.email;
+  const [{ data: UserData, fetching, error }] = useQuery<
+    GetUserQuery,
+    GetUserQueryVariables
+  >({ query: GetUserDocument, variables: { email: userEmail as string } });
+
+  
+
+  const Orders = UserData?.getUser.order;
+
+  
   return (
     <Container>
       <div className="mt-6 text-center">
@@ -36,7 +58,7 @@ const UserOrders = () => {
        md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
         gap-8 max-h-[80vh] overflow-y-auto scrollbar-hide"
       >
-        {OrderData?.map((order) => (
+        {Orders?.map((order) => (
           <div
             className="flex flex-col p-3 border rounded-md space-y-6"
             key={order.id}

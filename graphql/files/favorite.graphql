@@ -1,0 +1,21 @@
+query GetUserFavorites($userEmail: String!) {
+  getUserFavorites(userEmail: $userEmail) {
+    id
+    menu
+    userEmail
+  }
+}
+
+mutation AddFavorite($menuId: String!, $userEmail: String!) {
+  addFavorite(menuId: $menuId, userEmail: $userEmail) {
+    id
+    menu
+  }
+}
+
+mutation RemoveFavorite($menuId: String!, $userEmail: String!) {
+  removeFavorite(menuId: $menuId, userEmail: $userEmail) {
+    id
+    menu
+  }
+}

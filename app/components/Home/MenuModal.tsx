@@ -1,21 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuCard from "./MenuCard";
 import Modal from "../Common/Modal";
 import Image from "next/image";
 import FavoritesBtn from "../Common/FavoritesBtn";
 import { Disclosure } from "@headlessui/react";
 import { HiChevronDown } from "react-icons/hi2";
+import { Menu, User } from "@prisma/client";
+import { useCartStore, useLoginModal } from "@/lib/store";
+import toast from "react-hot-toast";
 
 type Props = {
   menu: Menu;
   user: User
 };
 
-const MenuModal = ({ menu }: Props) => {
+const MenuModal = ({ menu, user }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [prepare, setPrepare] = useState("");
+  const [instructions, setInstructions] = useState("");
 
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
+
+  const { addToCart} = useCartStore()
+  const {onOpen } = useLoginModal()
+
+  const MenuToAdd = { ...menu, quantity: 1, prepare, instructions}
+
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+  }, []);
+
+  
+
+  const PutItemsIntoCart = () => {
+    if(!user){
+      toast.error("OOps, login first", { duration: 5000 });
+      closeModal();
+      onOpen();
+    }else {
+      addToCart(MenuToAdd)
+      toast.success("Menu Added to Cart", { duration: 4000 });
+      setTimeout(closeModal, 2000);
+    }
+  }
+
+  
+
 
   return (
     <>
@@ -34,7 +65,7 @@ const MenuModal = ({ menu }: Props) => {
       rounded-full bg-white
       "
           >
-            <FavoritesBtn />
+            <FavoritesBtn menuId={menu.id} user={user} />
           </div>
         </div>
         <div className="mt-2">
@@ -56,6 +87,8 @@ const MenuModal = ({ menu }: Props) => {
                   {menu.prepType?.map((prep, index) => (
                     <div key={index} className="flex my-2">
                       <input
+                       checked={prepare === prep}
+                       onChange={() => setPrepare(prep)}
                         className="w-6 h-6 text-green-600 bg-gray-100 rounded border-green-500 focus:ring-green-500  focus:ring-2 "
                         type="checkbox"
                       />
@@ -69,10 +102,15 @@ const MenuModal = ({ menu }: Props) => {
           )}
           <div className="mt-4">
             <p className="text-center mb-3">Special Instructions</p>
-            <input type="text" className="w-full h-16 rounded bg-green-50 border border-green-500 focus:outline-none focus-visible:ring-green-500" />
+            <input type="text" 
+            className="w-full h-16 rounded bg-green-50 border border-green-500 focus:outline-none focus-visible:ring-green-500"
+            onChange={(e) => setInstructions(e.target.value)}
+            />
           </div>
           <div className="mt-4">
-            <button className="form-button">
+            <button className="form-button"
+            onClick={PutItemsIntoCart}
+            >
                 Add to Cart :$ {menu.price}
             </button>
           </div>

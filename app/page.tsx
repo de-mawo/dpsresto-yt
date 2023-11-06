@@ -20,7 +20,7 @@ export default async function Home() {
       <HeroSection/>
       <Promos/>
     <Categories/>
-    <MenuSection/>
+    <MenuSection user={user as User} />
     <Footer/>
       
     </main>

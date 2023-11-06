@@ -9,36 +9,31 @@ import { HiLocationMarker } from "react-icons/hi";
 import { UserOrderCollected, UserOrderPreparing } from "./ViewUserOrderStatus";
 import Modal from "@/app/components/Common/Modal";
 import AppMap from "@/app/components/Common/AppMap";
-
+import { Order, User } from "@prisma/client";
 
 type Props = {
-  order: Order
-
+  order: Order;
+  
 };
-
-const UserOnDeliveryModal = ({ order}: Props) => {
+const UserOnDeliveryModal = ({ order }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  
-
   return (
     <>
-      
-        <button
-          className="flex justify-between p-1 items-center rounded-md bg-slate-50  text-slate-700"
-          onClick={openModal}
-        >
-          <span className="flex items-center space-x-2 ">
-            <GiScooter className=" animate-bounce " size={28} />
-            <span>Order on the way</span>
-          </span>
+      <button
+        className="flex justify-between p-1 items-center rounded-md bg-slate-50  text-slate-700"
+        onClick={openModal}
+      >
+        <span className="flex items-center space-x-2 ">
+          <GiScooter className=" animate-bounce " size={28} />
+          <span>Order on the way</span>
+        </span>
 
-          <FaChevronRight className="shrink-0" />
-        </button>
-    
+        <FaChevronRight className="shrink-0" />
+      </button>
 
       <Modal
         isOpen={isOpen}
@@ -56,15 +51,15 @@ const UserOnDeliveryModal = ({ order}: Props) => {
 
               <h5 className=" ">DPS Resto</h5>
               <p className="mb-1 text-sm font-normal leading-none ">
-                26 Dublin Street, X215, Darwin
+                {order.deliveryAddress}
               </p>
             </li>
-            
+
             {order.status === "PREPARING" || order.status === "UNASSIGNED" ? (
-              <UserOrderPreparing/>
-            ): (
-              <UserOrderCollected/>
-            ) }
+              <UserOrderPreparing />
+            ) : (
+              <UserOrderCollected />
+            )}
 
             <li className="mb-10 ml-6">
               <div className="absolute flex items-center justify-center w-6 h-6 bg-red-100 text-red-900 rounded-full -left-3 ">

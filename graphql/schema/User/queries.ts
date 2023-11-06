@@ -14,7 +14,7 @@ builder.prismaObject("User", {
         role: t.expose("role", { type: Role }),
         // profile: t.relation("profile", {nullable: true}),
         // favorite: t.relation("favorite",{nullable: true}),
-        // order: t.relation("order", {nullable: true})
+        order: t.relation("order", {nullable: true})
       }),
 })
 
@@ -31,4 +31,25 @@ builder.queryFields((t) => ({
       return adminUsers;
     },
   }),
+
+  getUser: t.prismaField({
+    type: "User",
+    args: {
+      email: t.arg.string({ required: true }),
+    },
+    resolve: async (query, _, args, context) => {    
+      const userRole = (await context).user?.role;
+      if (userRole !== "USER" && userRole !== "ADMIN") {
+        throw new GraphQLError(
+          "You must be logged in as a user or an admin to perform this action"
+        );
+      }
+      const user = await prisma.user.findUniqueOrThrow({
+        ...query,
+        where: { email: args?.email },
+      });
+      return user;
+    },
+  }),
+
 }))

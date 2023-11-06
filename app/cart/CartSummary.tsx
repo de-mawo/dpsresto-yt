@@ -1,20 +1,120 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CartList from "./CartList";
 import LocationBtn from "../components/Common/LocationBtn";
+import { useCartStore } from "@/lib/store";
+import { User } from "@prisma/client";
+import { FaCartArrowDown } from "react-icons/fa";
+import { useMutation, useQuery } from "@urql/next";
+import { ORDER_NUMBER } from "@/lib/createOrderNumber";
+import {
+  AddOrderDocument,
+  AddOrderMutation,
+  AddOrderMutationVariables,
+  GetProfileDocument,
+  GetProfileQuery,
+  GetProfileQueryVariables,
+} from "@/graphql/generated";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { Base64 } from "js-base64";
 
-const CartSummary = () => {
-  const [subTotal, setSubTotal] = useState(21);
+type Props = {
+  user: User;
+};
 
+const CartSummary = ({ user }: Props) => {
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [orderNumber, setOrderNumber] = useState("");
+  const [subTotal, setSubTotal] = useState(0);
   const [note, setNote] = useState("");
-
+  const router = useRouter();
+  const userName = user?.name as string;
+  const email = user?.email as string;
   const serviceFee = 6;
   const deliveryFee = 3;
   const discount = 2;
   const fees = serviceFee + deliveryFee;
   const total = fees + (subTotal - discount);
+
+  const [{ data: UserProfileData, fetching, error }] = useQuery<
+    GetProfileQuery,
+    GetProfileQueryVariables
+  >({ query: GetProfileDocument, variables: { email } });
+
+  const userPhone = UserProfileData?.getProfile.phone as string;
+
+  const { menus } = useCartStore();
+
+  useEffect(() => {
+    // Retrieve and set the deliveryAddress from localStorage
+    if (typeof window !== "undefined") {
+      const address = localStorage?.getItem("delivery_address") as string;
+      setDeliveryAddress(address);
+    }
+
+    const getSubTotal = () => {
+      const res = menus.reduce(
+        (prev, item) => prev + item.price * item.quantity,
+        0
+      );
+      setSubTotal(res);
+      setOrderNumber(ORDER_NUMBER);
+    };
+    getSubTotal();
+  }, [menus]);
+
+  const [_, addOrder] = useMutation<
+    AddOrderMutation,
+    AddOrderMutationVariables
+  >(AddOrderDocument);
+
+  const handleCheckOut = async () => {
+    if (userPhone === "" || userPhone === null || userPhone === undefined) {
+      toast.error(
+        "Please add your phone number: ...Redirecting to your profile",
+        { duration: 6000 }
+      );
+      router.push("/user");
+    }
+    if (deliveryAddress === "" || deliveryAddress === null) {
+      toast.error("Please add a delivery address", { duration: 3000 });
+    }
+
+    const res = await addOrder({
+      cart: menus,
+      deliveryAddress,
+      deliveryFee,
+      userEmail: email,
+      userName,
+      userPhone,
+      orderNumber,
+      serviceFee,
+      total,
+      discount,
+      note,
+    });
+    if (res.data?.addOrder) {
+      const orderId = res.data.addOrder.id;
+      const encodedTotal = Base64.encode(total.toString());
+      router.push(`/pay/${orderId}?total=${encodedTotal}`);
+    } else {
+      toast.error("An error occured", { duration: 800 });
+    }
+  };
+
+  if (menus.length < 1) {
+    return (
+      <div className="flex items-center justify-center space-x-3">
+        <h2 className="text-2xl   leading-tight tracking-tight text-gray-600  ">
+          Cart Empty...
+        </h2>
+        <FaCartArrowDown className="animate-bounce text-green-600" size={24} />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -27,7 +127,7 @@ const CartSummary = () => {
                 Delivery Address
               </h2>
               <div>
-                <LocationBtn/>
+                <LocationBtn />
               </div>
             </div>
           </div>
@@ -40,7 +140,6 @@ const CartSummary = () => {
                 Review your order details and then pay securely via Stripe
               </p>
             </div>
-
 
             <div className="px-4 sm:px-6 lg:px-8 mt-2">
               <div className="border-t border-gray-200 py-4">
@@ -116,7 +215,7 @@ const CartSummary = () => {
               </dd>
             </div>
           </div>
-          
+
           <div className="px-4 sm:px-6 lg:px-8 mt-2">
             <div className="flex justify-end">
               <button
@@ -124,6 +223,7 @@ const CartSummary = () => {
               border border-transparent shadow-sm text-sm font-medium rounded-md
                text-white bg-green-600 hover:bg-green-700 focus:outline-none 
                focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+               onClick={handleCheckOut}
               >
                 CheckOut
               </button>

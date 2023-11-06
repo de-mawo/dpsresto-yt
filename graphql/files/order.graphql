@@ -1,0 +1,40 @@
+mutation AddOrder(
+  $cart: JSON!
+  $deliveryAddress: String!
+  $deliveryFee: Float!
+  $orderNumber: String!
+  $serviceFee: Float!
+  $total: Float!
+  $userEmail: String!
+  $userName: String!
+  $userPhone: String!
+  $discount: Float
+  $note: String
+  $paymentToken: String
+) {
+  addOrder(
+    cart: $cart
+    deliveryAddress: $deliveryAddress
+    deliveryFee: $deliveryFee
+    orderNumber: $orderNumber
+    serviceFee: $serviceFee
+    total: $total
+    userEmail: $userEmail
+    userName: $userName
+    userPhone: $userPhone
+    discount: $discount
+    note: $note
+    paymentToken: $paymentToken
+  ) {
+    id
+  }
+}
+
+mutation EditOrderOnPayment(
+  $editOrderOnPaymentId: String!
+  $paymentToken: String
+) {
+  editOrderOnPayment(id: $editOrderOnPaymentId, paymentToken: $paymentToken) {
+    id
+  }
+}

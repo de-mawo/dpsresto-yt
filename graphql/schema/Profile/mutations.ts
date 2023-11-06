@@ -43,7 +43,7 @@ builder.mutationFields((t) => ({
     },
     resolve: async (_query, _, args, context) => {
       const isLoggedIn = (await context).user;
-      if (isLoggedIn) {
+      if (!isLoggedIn) {
         throw new GraphQLError("You must be logged in  to perform this action");
       }
       const newProfile = await prisma.profile.update({

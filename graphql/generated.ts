@@ -239,6 +239,7 @@ export type Query = {
   getOrders: QueryGetOrdersConnection;
   getProfile: Profile;
   getProfiles: Array<Profile>;
+  getUser: User;
   getUserFavorites: Favorite;
   getUsers: Array<User>;
 };
@@ -286,6 +287,11 @@ export type QueryGetProfileArgs = {
 };
 
 
+export type QueryGetUserArgs = {
+  email: Scalars['String']['input'];
+};
+
+
 export type QueryGetUserFavoritesArgs = {
   userEmail: Scalars['String']['input'];
 };
@@ -327,8 +333,32 @@ export type User = {
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  order?: Maybe<Array<Order>>;
   role: Role;
 };
+
+export type GetUserFavoritesQueryVariables = Exact<{
+  userEmail: Scalars['String']['input'];
+}>;
+
+
+export type GetUserFavoritesQuery = { __typename?: 'Query', getUserFavorites: { __typename?: 'Favorite', id: string, menu: Array<string>, userEmail: string } };
+
+export type AddFavoriteMutationVariables = Exact<{
+  menuId: Scalars['String']['input'];
+  userEmail: Scalars['String']['input'];
+}>;
+
+
+export type AddFavoriteMutation = { __typename?: 'Mutation', addFavorite: { __typename?: 'Favorite', id: string, menu: Array<string> } };
+
+export type RemoveFavoriteMutationVariables = Exact<{
+  menuId: Scalars['String']['input'];
+  userEmail: Scalars['String']['input'];
+}>;
+
+
+export type RemoveFavoriteMutation = { __typename?: 'Mutation', removeFavorite: { __typename?: 'Favorite', id: string, menu: Array<string> } };
 
 export type GetMenusQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -338,7 +368,112 @@ export type GetMenusQueryVariables = Exact<{
 
 export type GetMenusQuery = { __typename?: 'Query', getMenus: { __typename?: 'QueryGetMenusConnection', pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean }, edges: Array<{ __typename?: 'QueryGetMenusConnectionEdge', cursor: string, node: { __typename?: 'Menu', category: string, id: string, image: string, longDescr: string, onPromo: boolean, prepType: Array<string>, price: number, sellingPrice?: number | null, shortDescr: string, title: string } } | null> } };
 
+export type GetMenuUserFavoritesQueryVariables = Exact<{
+  menuIds: Array<Scalars['String']['input']> | Scalars['String']['input'];
+  userEmail: Scalars['String']['input'];
+}>;
 
+
+export type GetMenuUserFavoritesQuery = { __typename?: 'Query', getMenuUserFavorites: Array<{ __typename?: 'Menu', category: string, id: string, image: string, longDescr: string, onPromo: boolean, prepType: Array<string>, price: number, sellingPrice?: number | null, shortDescr: string, title: string }> };
+
+export type AddOrderMutationVariables = Exact<{
+  cart: Scalars['JSON']['input'];
+  deliveryAddress: Scalars['String']['input'];
+  deliveryFee: Scalars['Float']['input'];
+  orderNumber: Scalars['String']['input'];
+  serviceFee: Scalars['Float']['input'];
+  total: Scalars['Float']['input'];
+  userEmail: Scalars['String']['input'];
+  userName: Scalars['String']['input'];
+  userPhone: Scalars['String']['input'];
+  discount?: InputMaybe<Scalars['Float']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
+  paymentToken?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type AddOrderMutation = { __typename?: 'Mutation', addOrder: { __typename?: 'Order', id: string } };
+
+export type EditOrderOnPaymentMutationVariables = Exact<{
+  editOrderOnPaymentId: Scalars['String']['input'];
+  paymentToken?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type EditOrderOnPaymentMutation = { __typename?: 'Mutation', editOrderOnPayment: { __typename?: 'Order', id: string } };
+
+export type GetUserQueryVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'User', email?: string | null, id: string, image?: string | null, name?: string | null, role: Role, order?: Array<{ __typename?: 'Order', cart: any, deliveryAddress: string, deliveryFee: number, deliveryTime?: any | null, discount?: number | null, id: string, note?: string | null, orderDate: any, orderNumber: string, paid: boolean, paymentToken?: string | null, serviceFee: number, status: OrderStatus, total: number, userEmail: string, userName: string, userPhone: string }> | null } };
+
+export type GetProfileQueryVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'Profile', id: string, img?: string | null, name?: string | null, phone?: string | null } };
+
+export type AddProfileMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  img?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type AddProfileMutation = { __typename?: 'Mutation', addProfile: { __typename?: 'Profile', id: string } };
+
+export type EditProfileMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  img?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type EditProfileMutation = { __typename?: 'Mutation', editProfile: { __typename?: 'Profile', id: string } };
+
+
+export const GetUserFavoritesDocument = gql`
+    query GetUserFavorites($userEmail: String!) {
+  getUserFavorites(userEmail: $userEmail) {
+    id
+    menu
+    userEmail
+  }
+}
+    `;
+
+export function useGetUserFavoritesQuery(options: Omit<Urql.UseQueryArgs<GetUserFavoritesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUserFavoritesQuery, GetUserFavoritesQueryVariables>({ query: GetUserFavoritesDocument, ...options });
+};
+export const AddFavoriteDocument = gql`
+    mutation AddFavorite($menuId: String!, $userEmail: String!) {
+  addFavorite(menuId: $menuId, userEmail: $userEmail) {
+    id
+    menu
+  }
+}
+    `;
+
+export function useAddFavoriteMutation() {
+  return Urql.useMutation<AddFavoriteMutation, AddFavoriteMutationVariables>(AddFavoriteDocument);
+};
+export const RemoveFavoriteDocument = gql`
+    mutation RemoveFavorite($menuId: String!, $userEmail: String!) {
+  removeFavorite(menuId: $menuId, userEmail: $userEmail) {
+    id
+    menu
+  }
+}
+    `;
+
+export function useRemoveFavoriteMutation() {
+  return Urql.useMutation<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>(RemoveFavoriteDocument);
+};
 export const GetMenusDocument = gql`
     query GetMenus($first: Int, $after: ID) {
   getMenus(first: $first, after: $after) {
@@ -367,4 +502,129 @@ export const GetMenusDocument = gql`
 
 export function useGetMenusQuery(options?: Omit<Urql.UseQueryArgs<GetMenusQueryVariables>, 'query'>) {
   return Urql.useQuery<GetMenusQuery, GetMenusQueryVariables>({ query: GetMenusDocument, ...options });
+};
+export const GetMenuUserFavoritesDocument = gql`
+    query GetMenuUserFavorites($menuIds: [String!]!, $userEmail: String!) {
+  getMenuUserFavorites(menuIds: $menuIds, userEmail: $userEmail) {
+    category
+    id
+    image
+    longDescr
+    onPromo
+    prepType
+    price
+    sellingPrice
+    shortDescr
+    title
+  }
+}
+    `;
+
+export function useGetMenuUserFavoritesQuery(options: Omit<Urql.UseQueryArgs<GetMenuUserFavoritesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetMenuUserFavoritesQuery, GetMenuUserFavoritesQueryVariables>({ query: GetMenuUserFavoritesDocument, ...options });
+};
+export const AddOrderDocument = gql`
+    mutation AddOrder($cart: JSON!, $deliveryAddress: String!, $deliveryFee: Float!, $orderNumber: String!, $serviceFee: Float!, $total: Float!, $userEmail: String!, $userName: String!, $userPhone: String!, $discount: Float, $note: String, $paymentToken: String) {
+  addOrder(
+    cart: $cart
+    deliveryAddress: $deliveryAddress
+    deliveryFee: $deliveryFee
+    orderNumber: $orderNumber
+    serviceFee: $serviceFee
+    total: $total
+    userEmail: $userEmail
+    userName: $userName
+    userPhone: $userPhone
+    discount: $discount
+    note: $note
+    paymentToken: $paymentToken
+  ) {
+    id
+  }
+}
+    `;
+
+export function useAddOrderMutation() {
+  return Urql.useMutation<AddOrderMutation, AddOrderMutationVariables>(AddOrderDocument);
+};
+export const EditOrderOnPaymentDocument = gql`
+    mutation EditOrderOnPayment($editOrderOnPaymentId: String!, $paymentToken: String) {
+  editOrderOnPayment(id: $editOrderOnPaymentId, paymentToken: $paymentToken) {
+    id
+  }
+}
+    `;
+
+export function useEditOrderOnPaymentMutation() {
+  return Urql.useMutation<EditOrderOnPaymentMutation, EditOrderOnPaymentMutationVariables>(EditOrderOnPaymentDocument);
+};
+export const GetUserDocument = gql`
+    query GetUser($email: String!) {
+  getUser(email: $email) {
+    email
+    id
+    image
+    name
+    role
+    order {
+      cart
+      deliveryAddress
+      deliveryFee
+      deliveryTime
+      discount
+      id
+      note
+      orderDate
+      orderNumber
+      paid
+      paymentToken
+      serviceFee
+      status
+      total
+      userEmail
+      userName
+      userPhone
+    }
+  }
+}
+    `;
+
+export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUserQuery, GetUserQueryVariables>({ query: GetUserDocument, ...options });
+};
+export const GetProfileDocument = gql`
+    query GetProfile($email: String!) {
+  getProfile(email: $email) {
+    id
+    img
+    name
+    phone
+  }
+}
+    `;
+
+export function useGetProfileQuery(options: Omit<Urql.UseQueryArgs<GetProfileQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetProfileQuery, GetProfileQueryVariables>({ query: GetProfileDocument, ...options });
+};
+export const AddProfileDocument = gql`
+    mutation AddProfile($email: String!, $img: String, $name: String, $phone: String) {
+  addProfile(email: $email, img: $img, name: $name, phone: $phone) {
+    id
+  }
+}
+    `;
+
+export function useAddProfileMutation() {
+  return Urql.useMutation<AddProfileMutation, AddProfileMutationVariables>(AddProfileDocument);
+};
+export const EditProfileDocument = gql`
+    mutation EditProfile($email: String!, $img: String, $name: String, $phone: String) {
+  editProfile(email: $email, img: $img, name: $name, phone: $phone) {
+    id
+  }
+}
+    `;
+
+export function useEditProfileMutation() {
+  return Urql.useMutation<EditProfileMutation, EditProfileMutationVariables>(EditProfileDocument);
 };

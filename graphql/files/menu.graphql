@@ -21,3 +21,19 @@ query GetMenus($first: Int, $after: ID) {
     }
   }
 }
+
+
+query GetMenuUserFavorites($menuIds: [String!]!, $userEmail: String!) {
+  getMenuUserFavorites(menuIds: $menuIds, userEmail: $userEmail) {
+    category
+    id
+    image
+    longDescr
+    onPromo
+    prepType
+    price
+    sellingPrice
+    shortDescr
+    title
+  }
+}

@@ -1,5 +1,5 @@
 "use client";
-import {  useLoginModal, useSideBarDrawer } from "@/lib/store";
+import {  useCartStore, useLoginModal, useSideBarDrawer } from "@/lib/store";
 import Link from "next/link";
 import { HiBars3, HiOutlineShoppingCart } from "react-icons/hi2";
 import LocationBtn from "./LocationBtn";
@@ -13,7 +13,7 @@ type HeaderProps = {
 const Header = ({user}:HeaderProps) => {
 
   const {onOpen} = useLoginModal()
-  
+  const { menus } = useCartStore();
 
     const {onSideBarOpen} = useSideBarDrawer()
 
@@ -40,7 +40,7 @@ const Header = ({user}:HeaderProps) => {
         >
           <HiOutlineShoppingCart className="pr-1" size={28} />
           <span className="absolute top-0 right-1 font-bold text-green-600">
-            0
+          { menus ? menus.length : 0 }
           </span>
         </Link>
         {

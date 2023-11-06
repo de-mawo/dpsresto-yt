@@ -4,10 +4,12 @@ import Link from "next/link";
 import UserDetails from "./UserDetails";
 import UserData from "./UserData";
 import UserPrefs from "./UserPrefs";
+import { getCurrentUser } from "@/lib/session";
+import { User } from "@prisma/client";
 
 
 export default async function  User  ()  {
-
+  const user = await getCurrentUser()
 
   return (
     <div className="flex flex-col items-center justify-center   py-8 px-6 mb-24">
@@ -28,7 +30,7 @@ export default async function  User  ()  {
         <h2 className="text-lg text-center py-5 md:text-2xl lg:text-3xl  leading-tight tracking-tight text-gray-600 sm:text-4xl ">
           My Profile
         </h2>
-        <UserDetails  />
+        <UserDetails user={user as User} />
         <UserData  />
         <UserPrefs />
       </div>
