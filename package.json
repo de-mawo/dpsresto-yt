@@ -20,8 +20,11 @@
     "@prisma/client": "^5.5.2",
     "@stripe/react-stripe-js": "^2.3.1",
     "@stripe/stripe-js": "^2.1.11",
+    "@supabase/supabase-js": "^2.38.4",
     "@types/mapbox-gl": "^2.7.17",
+    "@types/uuid": "^9.0.6",
     "@urql/next": "^1.1.0",
+    "D": "^1.0.0",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
     "js-base64": "^3.7.5",
@@ -37,6 +40,7 @@
     "recharts": "^2.9.0",
     "stripe": "^14.3.0",
     "urql": "^4.0.5",
+    "uuid": "^9.0.1",
     "zustand": "^4.4.4"
   },
   "devDependencies": {

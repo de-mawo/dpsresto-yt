@@ -360,6 +360,42 @@ export type RemoveFavoriteMutationVariables = Exact<{
 
 export type RemoveFavoriteMutation = { __typename?: 'Mutation', removeFavorite: { __typename?: 'Favorite', id: string, menu: Array<string> } };
 
+export type AddMenuMutationVariables = Exact<{
+  category: Scalars['String']['input'];
+  image: Scalars['String']['input'];
+  longDescr: Scalars['String']['input'];
+  prepType: Array<Scalars['String']['input']> | Scalars['String']['input'];
+  price: Scalars['Float']['input'];
+  shortDescr: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  sellingPrice?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type AddMenuMutation = { __typename?: 'Mutation', addMenu: { __typename?: 'Menu', id: string } };
+
+export type EditMenuMutationVariables = Exact<{
+  category: Scalars['String']['input'];
+  editMenuId: Scalars['String']['input'];
+  image: Scalars['String']['input'];
+  longDescr: Scalars['String']['input'];
+  prepType: Array<Scalars['String']['input']> | Scalars['String']['input'];
+  price: Scalars['Float']['input'];
+  shortDescr: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  sellingPrice?: InputMaybe<Scalars['Float']['input']>;
+}>;
+
+
+export type EditMenuMutation = { __typename?: 'Mutation', editMenu: { __typename?: 'Menu', id: string } };
+
+export type DeleteMenuMutationVariables = Exact<{
+  deleteMenuId: Scalars['String']['input'];
+}>;
+
+
+export type DeleteMenuMutation = { __typename?: 'Mutation', deleteMenu: { __typename?: 'Menu', id: string } };
+
 export type GetMenusQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
   after?: InputMaybe<Scalars['ID']['input']>;
@@ -375,6 +411,14 @@ export type GetMenuUserFavoritesQueryVariables = Exact<{
 
 
 export type GetMenuUserFavoritesQuery = { __typename?: 'Query', getMenuUserFavorites: Array<{ __typename?: 'Menu', category: string, id: string, image: string, longDescr: string, onPromo: boolean, prepType: Array<string>, price: number, sellingPrice?: number | null, shortDescr: string, title: string }> };
+
+export type GetOrdersQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']['input']>;
+  after?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type GetOrdersQuery = { __typename?: 'Query', getOrders: { __typename?: 'QueryGetOrdersConnection', pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean }, edges: Array<{ __typename?: 'QueryGetOrdersConnectionEdge', cursor: string, node: { __typename?: 'Order', cart: any, deliveryAddress: string, deliveryFee: number, deliveryTime?: any | null, discount?: number | null, id: string, note?: string | null, orderDate: any, orderNumber: string, paid: boolean, paymentToken?: string | null, serviceFee: number, status: OrderStatus, total: number, userEmail: string, userName: string, userPhone: string } } | null> } };
 
 export type AddOrderMutationVariables = Exact<{
   cart: Scalars['JSON']['input'];
@@ -401,6 +445,15 @@ export type EditOrderOnPaymentMutationVariables = Exact<{
 
 
 export type EditOrderOnPaymentMutation = { __typename?: 'Mutation', editOrderOnPayment: { __typename?: 'Order', id: string } };
+
+export type EditOrderMutationVariables = Exact<{
+  editOrderId: Scalars['String']['input'];
+  status: OrderStatus;
+  deliveryTime?: InputMaybe<Scalars['DateTime']['input']>;
+}>;
+
+
+export type EditOrderMutation = { __typename?: 'Mutation', editOrder: { __typename?: 'Order', id: string } };
 
 export type GetUserQueryVariables = Exact<{
   email: Scalars['String']['input'];
@@ -474,6 +527,58 @@ export const RemoveFavoriteDocument = gql`
 export function useRemoveFavoriteMutation() {
   return Urql.useMutation<RemoveFavoriteMutation, RemoveFavoriteMutationVariables>(RemoveFavoriteDocument);
 };
+export const AddMenuDocument = gql`
+    mutation AddMenu($category: String!, $image: String!, $longDescr: String!, $prepType: [String!]!, $price: Float!, $shortDescr: String!, $title: String!, $sellingPrice: Float) {
+  addMenu(
+    category: $category
+    image: $image
+    longDescr: $longDescr
+    prepType: $prepType
+    price: $price
+    shortDescr: $shortDescr
+    title: $title
+    sellingPrice: $sellingPrice
+  ) {
+    id
+  }
+}
+    `;
+
+export function useAddMenuMutation() {
+  return Urql.useMutation<AddMenuMutation, AddMenuMutationVariables>(AddMenuDocument);
+};
+export const EditMenuDocument = gql`
+    mutation EditMenu($category: String!, $editMenuId: String!, $image: String!, $longDescr: String!, $prepType: [String!]!, $price: Float!, $shortDescr: String!, $title: String!, $sellingPrice: Float) {
+  editMenu(
+    category: $category
+    id: $editMenuId
+    image: $image
+    longDescr: $longDescr
+    prepType: $prepType
+    price: $price
+    shortDescr: $shortDescr
+    title: $title
+    sellingPrice: $sellingPrice
+  ) {
+    id
+  }
+}
+    `;
+
+export function useEditMenuMutation() {
+  return Urql.useMutation<EditMenuMutation, EditMenuMutationVariables>(EditMenuDocument);
+};
+export const DeleteMenuDocument = gql`
+    mutation DeleteMenu($deleteMenuId: String!) {
+  deleteMenu(id: $deleteMenuId) {
+    id
+  }
+}
+    `;
+
+export function useDeleteMenuMutation() {
+  return Urql.useMutation<DeleteMenuMutation, DeleteMenuMutationVariables>(DeleteMenuDocument);
+};
 export const GetMenusDocument = gql`
     query GetMenus($first: Int, $after: ID) {
   getMenus(first: $first, after: $after) {
@@ -523,6 +628,42 @@ export const GetMenuUserFavoritesDocument = gql`
 export function useGetMenuUserFavoritesQuery(options: Omit<Urql.UseQueryArgs<GetMenuUserFavoritesQueryVariables>, 'query'>) {
   return Urql.useQuery<GetMenuUserFavoritesQuery, GetMenuUserFavoritesQueryVariables>({ query: GetMenuUserFavoritesDocument, ...options });
 };
+export const GetOrdersDocument = gql`
+    query GetOrders($first: Int, $after: ID) {
+  getOrders(first: $first, after: $after) {
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    edges {
+      cursor
+      node {
+        cart
+        deliveryAddress
+        deliveryFee
+        deliveryTime
+        discount
+        id
+        note
+        orderDate
+        orderNumber
+        paid
+        paymentToken
+        serviceFee
+        status
+        total
+        userEmail
+        userName
+        userPhone
+      }
+    }
+  }
+}
+    `;
+
+export function useGetOrdersQuery(options?: Omit<Urql.UseQueryArgs<GetOrdersQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetOrdersQuery, GetOrdersQueryVariables>({ query: GetOrdersDocument, ...options });
+};
 export const AddOrderDocument = gql`
     mutation AddOrder($cart: JSON!, $deliveryAddress: String!, $deliveryFee: Float!, $orderNumber: String!, $serviceFee: Float!, $total: Float!, $userEmail: String!, $userName: String!, $userPhone: String!, $discount: Float, $note: String, $paymentToken: String) {
   addOrder(
@@ -557,6 +698,17 @@ export const EditOrderOnPaymentDocument = gql`
 
 export function useEditOrderOnPaymentMutation() {
   return Urql.useMutation<EditOrderOnPaymentMutation, EditOrderOnPaymentMutationVariables>(EditOrderOnPaymentDocument);
+};
+export const EditOrderDocument = gql`
+    mutation EditOrder($editOrderId: String!, $status: OrderStatus!, $deliveryTime: DateTime) {
+  editOrder(id: $editOrderId, status: $status, deliveryTime: $deliveryTime) {
+    id
+  }
+}
+    `;
+
+export function useEditOrderMutation() {
+  return Urql.useMutation<EditOrderMutation, EditOrderMutationVariables>(EditOrderDocument);
 };
 export const GetUserDocument = gql`
     query GetUser($email: String!) {

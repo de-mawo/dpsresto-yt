@@ -9,7 +9,14 @@ const nextConfig = {
             {
                 protocol: "https",
                 hostname: "platform-lookaside.fbsbx.com"
+            },
+            {
+                protocol: "https",
+                hostname: "wipkvzpunolbsbjsytlp.supabase.co"
             }
+
+
+            
         ]
     }
 }

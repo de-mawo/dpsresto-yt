@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { HiPlus } from "react-icons/hi2";
-
-import { categoriesData } from "@/data/categories-data";
+import { useMutation } from "@urql/next";
+import toast from "react-hot-toast";
+import { CustomCategory } from "@/types";
+import { SupabaseImageUpload } from "@/lib/supabaseStorage";
+import { AddMenuDocument, AddMenuMutation, AddMenuMutationVariables } from "@/graphql/generated";
 import Modal from "@/app/components/Common/Modal";
+import { categoriesData } from "@/data/categories-data";
 import UploadImg from "../Components/UploadImg";
 
 const AdminAddMenu = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -14,10 +19,20 @@ const AdminAddMenu = () => {
   const [shortDescr, setShortDescr] = useState("");
   const [price, setPrice] = useState(0);
   const [prepType, setPrepType] = useState<string[]>([]);
-  //   const [image, setImage] = useState("");
+  const [image, setImage] = useState("");
 
   const closeModal = () => setIsOpen(false);
   const OpenModal = () => setIsOpen(true);
+
+  const clearForm = async () => {
+    setTitle("");
+    setCategory("");
+    setLongDescr("");
+    setShortDescr("");
+    setPrice(0);
+    setPrepType([""]);
+    setImage("");
+  };
 
   const [preparationInput, setPreparationInput] = useState("");
 
@@ -26,6 +41,63 @@ const AdminAddMenu = () => {
     tempData.push(preparationInput);
     setPrepType(prepType);
     setPreparationInput("");
+  };
+  // A callback function to get the file from the child UploadImg which will be used by SupabaseImage Upload func
+  const getMenuImageFile = async (file: File) => {
+    try {
+      const res = await SupabaseImageUpload(file);
+      if (res) {
+        setImage(res);
+      }
+    } catch (error) {
+      toast.error(`Error uploading image: ${error}`, { duration: 3000 });
+    }
+  };
+
+  const [_, addMenu] = useMutation<AddMenuMutation, AddMenuMutationVariables>(
+    AddMenuDocument
+  );
+
+  const handleAddMenu = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const requiredFields = [
+      image,
+      title,
+      category,
+      shortDescr,
+      prepType,
+      price,
+    ];
+
+    if (requiredFields.some((field) => !field)) {
+      toast.error("Please fill in all required fields", { duration: 3000 });
+      return;
+    }
+
+    try {
+      const res = await addMenu({
+        image,
+        title,
+        category,
+        longDescr,
+        shortDescr,
+        prepType,
+        price,
+      });
+
+      if (res.data?.addMenu) {
+        toast.success("Menu Added Successfully", { duration: 1000 });
+        await clearForm();
+        setTimeout(closeModal, 3000);
+        router.refresh();
+      } else {
+        toast.error("An error occurred", { duration: 1000 });
+      }
+    } catch (error) {
+      console.error("Error adding menu:", error);
+      toast.error("An error occurred", { duration: 1000 });
+    }
   };
 
   return (
@@ -40,7 +112,7 @@ const AdminAddMenu = () => {
         Add Menu
       </button>
       <Modal isOpen={isOpen} title={title} closeModal={closeModal}>
-        <form>
+        <form onSubmit={handleAddMenu}>
           <div className="grid gap-4 mb-4 sm:grid-cols-2">
             <div>
               <label htmlFor="name" className="form-label ">
@@ -147,7 +219,7 @@ const AdminAddMenu = () => {
             ) : null}
           </div>
 
-          <UploadImg />
+          <UploadImg handleCallBack={getMenuImageFile} id="addAdminMenu" />
 
           <button
             type="submit"

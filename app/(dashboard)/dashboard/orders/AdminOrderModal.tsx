@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HiOutlineEye } from "react-icons/hi2";
 import Image from "next/image";
 import Modal from "@/app/components/Common/Modal";
+import { Order } from "@prisma/client";
 
 type AdminOrderProps = {
   order: Order;
@@ -30,8 +31,8 @@ const AdminOrderModal = ({ order }: AdminOrderProps) => {
         </div>
 
         <div className="mt-4">
-          {order.cart.map((cart) => (
-            <div className="flex items-center space-y-3 " key={cart.id}>
+          {order.cart.map((cart: any ) => (
+            <div className="flex items-center space-y-3 " key={cart?.id }>
               <div className="w-16 h-16 overflow-hidden  rounded-full">
                 <Image
                   src={cart.image}

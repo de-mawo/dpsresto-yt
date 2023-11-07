@@ -5,11 +5,11 @@ import React, { ChangeEvent, useCallback, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
 type Props ={
- 
+  handleCallBack: (file: File) => void;
   id?: string;
 }
 
-const UploadImg = ({ id}:Props) => {
+const UploadImg = ({handleCallBack, id}:Props) => {
   const [data, setData] = useState<{image: string | null}>({image: null});
   const [file, setFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false); 
@@ -21,7 +21,7 @@ const UploadImg = ({ id}:Props) => {
         if (file.size / 1024 / 1024 > 3) {
         //   toast.error('File size too big (max 3MB)')
         } else {
-          
+          handleCallBack(file)
           setFile(file)
           const reader = new FileReader()
           reader.onload = (e) => {
@@ -31,7 +31,7 @@ const UploadImg = ({ id}:Props) => {
         }
       }
     },
-    []
+    [handleCallBack]
   )
 
 //   const [saving, setSaving] = useState(false)

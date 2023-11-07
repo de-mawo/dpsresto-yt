@@ -3,12 +3,14 @@
 import { useState } from "react";
 import DashHeader from "./DashHeader";
 import DashSideBar from "./DashSideBar";
+import { User } from "@prisma/client";
 
 type DashWrapperProps = {
   children: React.ReactNode;
+  user: User
 };
 
-const DashWrapper = ({ children }: DashWrapperProps) => {
+const DashWrapper = ({ user, children }: DashWrapperProps) => {
   const [show, setShow] = useState(false);
   const showSideBar = () => {
     setShow(!show);
@@ -22,7 +24,7 @@ const DashWrapper = ({ children }: DashWrapperProps) => {
           show && " md:ml-[10rem]"
         }`}
       >
-        <DashHeader />
+        <DashHeader user={user} />
         {children}
       </section>
     </div>

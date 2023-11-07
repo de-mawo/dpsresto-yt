@@ -1,5 +1,16 @@
 import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
+import { Menu } from "@prisma/client";
+import { useMutation } from "@urql/next";
+
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import {
+  DeleteMenuDocument,
+  DeleteMenuMutation,
+  DeleteMenuMutationVariables,
+} from "@/graphql/generated";
+import { SupabaseImageDelete } from "@/lib/supabaseStorage";
 import Modal from "@/app/components/Common/Modal";
 
 type Props = {
@@ -7,11 +18,47 @@ type Props = {
 };
 
 const AdminDeleteMenu = ({ menu }: Props) => {
-  
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
   const OpenModal = () => setIsOpen(true);
+
+  const deleteMenuId = menu.id;
+
+  const [_, deleteMenu] = useMutation<
+    DeleteMenuMutation,
+    DeleteMenuMutationVariables
+  >(DeleteMenuDocument);
+
+  const deleteOldMenuImg = async () => {
+    const file = menu.image;
+    if (file) {
+      await SupabaseImageDelete(file);
+    } else return;
+  };
+
+  const handleDeleteMenu = async () => {
+    await deleteOldMenuImg();
+
+    try {
+      const res = await deleteMenu({
+        deleteMenuId,
+      });
+
+      if (res.data?.deleteMenu) {
+        toast.success("Menu Deleted Successfully", { duration: 1000 });
+
+        setTimeout(closeModal, 3000);
+        router.refresh();
+      } else {
+        toast.error("An error occurred", { duration: 1000 });
+      }
+    } catch (error) {
+      console.error("Error editing menu:", error);
+      toast.error("An error occurred", { duration: 1000 });
+    }
+  };
 
   return (
     <>
@@ -39,7 +86,8 @@ const AdminDeleteMenu = ({ menu }: Props) => {
                 No, cancel
               </button>
               <button
-                type="button"
+                onClick={handleDeleteMenu}
+                type="submit"
                 className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700  "
               >
                 Yes, I&apos;m sure

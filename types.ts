@@ -1,6 +1,6 @@
 import { Menu } from "@prisma/client";
 
-type PromoTypes = {
+export type PromoTypes = {
   title: string;
   img: string;
   salesQ: number;
@@ -9,13 +9,7 @@ type PromoTypes = {
   price: number;
 };
 
-
-
-
-
-
-
-type Category = {
+export type CustomCategory = {
   desc: string;
   id: string;
   category: string;
