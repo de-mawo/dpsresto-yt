@@ -9,20 +9,20 @@
 ### Tech-Stack
 The app was built using the following technologies:
 
-Next.js as the React framework
-Apollo Server: GraphQL server
-Pothos: Pothos serves as a GraphQL schema construction framework, write GraphQL schema through code.
-Urql: Our graphql client to query data from our Graphql server
-Prisma as the ORM for migrations and database access
-PostgreSQL: database for local testing
-Supabase: for cloud-based Database ,uploading & storing images
-Next-Auth/Authjs: for authentication
-TypeScript: the programming language
-TailwindCSS: Styling
-Zustand for state management
-Stripe Api for payment handling
-MapBox for Geocoding & Maps
-Vercel: for deployment
+- Next.js as the React framework
+- Apollo Server: GraphQL server
+- Pothos: Pothos serves as a GraphQL schema construction framework, write GraphQL schema through code.
+- Urql: Our graphql client to query data from our Graphql server
+- Prisma as the ORM for migrations and database access
+- PostgreSQL: database for local testing
+- Supabase: for cloud-based Database ,uploading & storing images
+- Next-Auth/Authjs: for authentication
+- TypeScript: the programming language
+- TailwindCSS: Styling
+- Zustand for state management
+- Stripe Api for payment handling
+- MapBox for Geocoding & Maps
+- Vercel: for deployment
 
 
 #### Clone the repo
@@ -42,7 +42,7 @@ Install packages
 `yarn dev`
 
 
-
+### Folder & File Structure
 ```
 dpsresto-yt
 ├─ .eslintrc.json
