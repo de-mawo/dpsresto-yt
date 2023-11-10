@@ -1,7 +1,7 @@
 # DPSRESTO: A food Delivery App
 
 
-<img src="/banner.png" alt="project-Img" />
+<img src="/fullstack.png" alt="project-Img" />
 
 ## <a href="https://youtu.be/nZLRBVbNqoU"> Design Video Tutorial </a>
 ## <a href="https://youtu.be/PaBvl3bniOI"> Backend Video Tutorial </a>
