@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Modal from "@/app/components/Common/Modal";
 import UploadImg from "../Components/UploadImg";
+import { Category } from "@prisma/client";
 
 type Props = {
   cat: Category;
@@ -15,13 +16,17 @@ type Props = {
 const AdminEditCategory = ({ cat }: Props) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [title, setTitle] = useState(cat.category);
+  const [title, setTitle] = useState(cat.title);
   const [desc, setDesc] = useState(cat.desc);
-  const [image, setImage] = useState(cat.imageSrc);
+  const [image, setImage] = useState(cat.img);
 
   const closeModal = () => setIsOpen(false);
-
   const OpenModal = () => setIsOpen(true);
+
+  const getCategoryImgFile = async (file: File) => {
+    console.log(file); 
+  };
+
 
   return (
     <>
@@ -29,12 +34,12 @@ const AdminEditCategory = ({ cat }: Props) => {
         onClick={OpenModal}
         className="cursor-pointer h-6 w-6 text-green-600"
       />
-      <Modal isOpen={isOpen} title={cat.category} closeModal={closeModal}>
+      <Modal isOpen={isOpen} title={cat.title} closeModal={closeModal}>
         <form>
           <div className="grid gap-4 mb-4 sm:grid-cols-2">
             <div className="sm:col-span-2 border-gray-300">
               <Image
-                src={cat.imageSrc}
+                src={cat.img}
                 alt="chefy"
                 width={360}
                 height={200}
@@ -70,7 +75,7 @@ const AdminEditCategory = ({ cat }: Props) => {
             </div>
           </div>
 
-          <UploadImg id="editCategory" />
+          <UploadImg handleCallBack={getCategoryImgFile} id="editCategory" />
 
           <button
             type="submit"

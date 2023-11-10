@@ -5,6 +5,7 @@ import Modal from "@/app/components/Common/Modal";
 import {  useState } from "react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import EditRoleForm from "./EditRoleForm";
+import { User } from "@prisma/client";
 
 type Props = {
     user: User

@@ -8,6 +8,10 @@ import UploadImg from "../Components/UploadImg";
 const RestaurantDetails = () => {
   const [image, setImage] = useState("");
 
+  const getBannerImgFile = async (file: File) => {
+    console.log(file);
+    
+  };
   return (
     <>
       <div className="flex items-center justify-center  p-4 text-2xl  text-slate-700 bg-white">
@@ -57,7 +61,7 @@ const RestaurantDetails = () => {
           </div>
         </div>
         <div>
-          <UploadImg id="restDetails" />
+          <UploadImg handleCallBack={getBannerImgFile} id="restDetails" />
         </div>
 
         <div className="">

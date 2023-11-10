@@ -14,8 +14,13 @@ const AdminAddCategory = () => {
   const [image, setImage] = useState("");
 
   const closeModal = () => setIsOpen(false);
-
   const OpenModal = () => setIsOpen(true);
+  const getCategoryImgFile = async (file: File) => {
+    console.log(file);
+    
+  };
+
+
 
   return (
     <>
@@ -60,7 +65,7 @@ const AdminAddCategory = () => {
             </div>
           </div>
 
-          <UploadImg id="addCategory" />
+          <UploadImg handleCallBack={getCategoryImgFile} id="addCategory" />
 
           <button
             type="submit"

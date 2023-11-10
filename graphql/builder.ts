@@ -4,6 +4,7 @@ import PrismaPlugin from '@pothos/plugin-prisma';
 import { DateTimeResolver, JSONResolver } from "graphql-scalars";
 import RelayPlugin from '@pothos/plugin-relay';
 import type PrismaTypes from "@pothos/plugin-prisma/generated";
+import prisma from "../lib/prisma";
 
 
 

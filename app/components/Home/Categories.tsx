@@ -27,7 +27,7 @@ const Categories = () => {
           >
             <Image src={cat.imageSrc} width={60} height={60} alt="category" />
             <div className="whitespace-nowrap text-sm">
-              <h3 className="text-center">{cat.category}</h3>
+              <h3 className="text-center">{cat.title}</h3>
             </div>
           </div>
         ))}

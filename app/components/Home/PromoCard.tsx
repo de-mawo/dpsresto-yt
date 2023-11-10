@@ -1,3 +1,4 @@
+import { PromoTypes } from "@/types"
 import Image from "next/image"
 
 type Props = {

@@ -20,9 +20,9 @@ export async function createContext({ req }: { req: NextRequest }) {
 
 
   // Disable this function when testing in Apollo SandBox
-  // if (!validateGraphApiKey(req)) {
-  //   throw new Error("Unauthorized: No Access"); // Throw an error if API key validation fails
-  // }
+  if (!validateGraphApiKey(req)) {
+    throw new Error("Unauthorized: No Access"); // Throw an error if API key validation fails
+  }
 
   const session = await getServerSession(authOptions);
 

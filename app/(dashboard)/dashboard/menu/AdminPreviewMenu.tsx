@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { HiOutlineEye } from "react-icons/hi2";
 import Modal from "@/app/components/Common/Modal";
+import { Menu } from "@prisma/client";
 
 
 type Props = {

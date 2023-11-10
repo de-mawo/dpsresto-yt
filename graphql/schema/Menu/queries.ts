@@ -7,7 +7,7 @@ builder.prismaObject("Menu", {
     id: t.exposeID("id"),
     title: t.exposeString("title"),
     shortDescr: t.exposeString("shortDescr"),
-    longDescr: t.exposeString("longDescr"),
+    longDescr: t.exposeString("longDescr", { nullable: true }),
     price: t.exposeFloat("price"),
     sellingPrice: t.exposeFloat("sellingPrice", { nullable: true }),
     image: t.exposeString("image"),

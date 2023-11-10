@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
-
 import { useRouter } from "next/navigation";
 import Modal from "@/app/components/Common/Modal";
 
-type Props = {
-  cat: Category;
-};
 
-const AdminDeleteCategory = ({ cat }: Props) => {
+
+const AdminDeleteCategory = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 

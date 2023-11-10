@@ -1,5 +1,6 @@
 "use client";
 
+import { User } from "@prisma/client";
 import { useState } from "react";
 import { GoChevronDown } from "react-icons/go";
 import { HiUser } from "react-icons/hi2";
@@ -26,7 +27,7 @@ const EditRoleForm = ({user}: Props) => {
             name="email"
             className="formInput"
             placeholder="Email"
-            value={user.email}
+            value={user.email as string}
             disabled
           />
         </div>

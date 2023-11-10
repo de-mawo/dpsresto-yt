@@ -1,7 +1,7 @@
 // https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
 
 
-import {PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 
 let prisma: PrismaClient

@@ -31,7 +31,7 @@ const CategoryDropDown = () => {
                     htmlFor="apple"
                     className="ml-2 text-sm font-medium text-gray-600 "
                   >
-                    {cat.category}
+                    {cat.title}
                   </label>
                 </li>
               ))}

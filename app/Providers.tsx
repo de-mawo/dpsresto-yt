@@ -25,16 +25,16 @@ const Providers = ({ children, graphqlApiKey }: ProviderProps) => {
       exchanges: [cacheExchange, ssr, fetchExchange],
       // disable this in development for you to be able to access your sandbox
 
-      // fetchOptions: () => {
-      //   const apiKey = graphqlApiKey;
+      fetchOptions: () => {
+        const apiKey = graphqlApiKey;
 
-      //   return {
-      //     headers: { authorization: apiKey ? `Bearer ${apiKey}` : "" },
-      //   };
-      // },
+        return {
+          headers: { authorization: apiKey ? `Bearer ${apiKey}` : "" },
+        };
+      },
     });
     return [client, ssr];
-  }, []);
+  }, [graphqlApiKey]);
 
   return (
     <UrqlProvider client={client} ssr={ssr}>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { UsersData } from "@/data/users-data";
 import TableWrapper from "../Components/TableWrapper";
 import EditRoleModal from "./EditRoleModal";
+import { User } from "@prisma/client";
 
 const AdminUserTable = () => {
   return (
@@ -47,7 +48,7 @@ const AdminUserTable = () => {
               <td className="px-6 py-2">{user.email} </td>
               <td className="px-6 py-2">{user.role}</td>
               <td className="px-6 py-2 whitespace-nowrap">
-                <EditRoleModal user={user} />
+                <EditRoleModal user={user as unknown as User} />
               </td>
             </tr>
           ))}

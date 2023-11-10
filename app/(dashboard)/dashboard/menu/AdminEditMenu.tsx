@@ -174,7 +174,7 @@ const AdminEditMenu = ({ menu }: Props) => {
                 value={category}
               >
                 {categoriesData.map((cat) => (
-                  <option key={cat.id}>{cat.category}</option>
+                  <option key={cat.id}>{cat.title}</option>
                 ))}
               </select>
             </div>
