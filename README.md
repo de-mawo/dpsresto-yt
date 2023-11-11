@@ -43,6 +43,7 @@ Install packages
 
 
 ### Folder & File Structure
+
 ```
 dpsresto-yt
 ├─ .eslintrc.json
@@ -65,10 +66,12 @@ dpsresto-yt
 │  │     ├─ deliveries
 │  │     │  ├─ AssignDriver.tsx
 │  │     │  ├─ DeliveriesTable.tsx
+│  │     │  ├─ loading.tsx
 │  │     │  ├─ OrderDelivered.tsx
 │  │     │  ├─ page.tsx
 │  │     │  └─ ViewDeliveryStatus.tsx
 │  │     ├─ layout.tsx
+│  │     ├─ loading.tsx
 │  │     ├─ menu
 │  │     │  ├─ AdminAddMenu.tsx
 │  │     │  ├─ AdminDeleteMenu.tsx
@@ -77,15 +80,18 @@ dpsresto-yt
 │  │     │  ├─ AdminMenuTable.tsx
 │  │     │  ├─ AdminPreviewMenu.tsx
 │  │     │  ├─ CategoryDropDown.tsx
+│  │     │  ├─ loading.tsx
 │  │     │  ├─ page.tsx
 │  │     │  └─ PriceDropDown.tsx
 │  │     ├─ notifications
+│  │     │  ├─ loading.tsx
 │  │     │  ├─ NotificationsList.tsx
 │  │     │  └─ page.tsx
 │  │     ├─ orders
 │  │     │  ├─ AdminFetchedOrders.tsx
 │  │     │  ├─ AdminOrderModal.tsx
 │  │     │  ├─ AdminOrderTable.tsx
+│  │     │  ├─ loading.tsx
 │  │     │  ├─ OrdersFilter.tsx
 │  │     │  └─ page.tsx
 │  │     ├─ page.tsx
@@ -94,6 +100,7 @@ dpsresto-yt
 │  │     │  ├─ AdminCategories.tsx
 │  │     │  ├─ AdminDeleteCategory.tsx
 │  │     │  ├─ AdminEditCategory.tsx
+│  │     │  ├─ loading.tsx
 │  │     │  ├─ OpeningHours.tsx
 │  │     │  ├─ page.tsx
 │  │     │  └─ RestaurantDetails.tsx
@@ -101,6 +108,7 @@ dpsresto-yt
 │  │        ├─ AdminUserTable.tsx
 │  │        ├─ EditRoleForm.tsx
 │  │        ├─ EditRoleModal.tsx
+│  │        ├─ loading.tsx
 │  │        └─ page.tsx
 │  ├─ (user)
 │  │  └─ user
@@ -108,13 +116,17 @@ dpsresto-yt
 │  │     │  ├─ FavoriteCard.tsx
 │  │     │  ├─ FavoriteModal.tsx
 │  │     │  ├─ FavoritesSection.tsx
+│  │     │  ├─ loading.tsx
 │  │     │  └─ page.tsx
 │  │     ├─ help
+│  │     │  ├─ loading.tsx
 │  │     │  ├─ page.tsx
 │  │     │  └─ RequestHelpForm.tsx
 │  │     ├─ LanguageSelectModal.tsx
 │  │     ├─ layout.tsx
+│  │     ├─ loading.tsx
 │  │     ├─ orders
+│  │     │  ├─ loading.tsx
 │  │     │  ├─ page.tsx
 │  │     │  ├─ UserDeliveredModal.tsx
 │  │     │  ├─ UserOnDeliveryModal.tsx
@@ -170,6 +182,7 @@ dpsresto-yt
 │  ├─ favicon.ico
 │  ├─ globals.css
 │  ├─ layout.tsx
+│  ├─ loading.tsx
 │  ├─ login
 │  │  └─ page.tsx
 │  ├─ page.tsx
@@ -182,7 +195,6 @@ dpsresto-yt
 │  │  ├─ page.tsx
 │  │  └─ SuccessPaymentComponent.tsx
 │  └─ Providers.tsx
-├─ banner.png
 ├─ codegen.yml
 ├─ data
 │  ├─ cart-data.ts
@@ -194,6 +206,7 @@ dpsresto-yt
 │  ├─ notify-data.ts
 │  ├─ order-data.ts
 │  └─ users-data.ts
+├─ fullstack.png
 ├─ globals.d.ts
 ├─ graphql
 │  ├─ files
